@@ -9,6 +9,7 @@ const FEEDBACK = localStorage;
 let formData = {}
 refs.form.addEventListener('input', throttle(onInputChange, 500))
 refs.form.addEventListener('submit', onFormSubmit)
+setValueFromLocal()
 function onFormSubmit(event){
     event.preventDefault()
     if (refs.textarea.value === '' || refs.email.value === '') {
@@ -28,5 +29,13 @@ if(FEEDBACK.getItem("formData")){
     for(let nameOfElement in formData){
         refs.form.elements[nameOfElement].value = formData[nameOfElement]
     }
+}
+function setValueFromLocal(){
+    if(FEEDBACK.getItem("formData")){
+        formData = JSON.parse(FEEDBACK.getItem("formData"))
+        for(let nameOfElement in formData){
+            refs.form.elements[nameOfElement].value = formData[nameOfElement]
+        }
+    } 
 }
 
